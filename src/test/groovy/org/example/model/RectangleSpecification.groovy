@@ -4,9 +4,10 @@ import spock.lang.Specification
 
 class RectangleSpecification extends Specification {
 
-    def "tests whether a rectangle intersects"() {
-        given: "a rectangle"
+    def "tests whether two rectangles intersect"() {
+        given: "a rectangle of specific size and placement"
         Rectangle aRectangle = new Rectangle(10, 20, 40, 20)
+
         when: "the values set fall within the original rectangle"
         Rectangle intersectingRectangle = new Rectangle(10, 10, 20, 40)
         then: "the rectangles intersect"
@@ -17,4 +18,21 @@ class RectangleSpecification extends Specification {
         then: "the rectangles do not intersect"
         !aRectangle.intersects(nonIntersectingRectangle)
     }
+
+    def "tests whether one rectangle is contained within another"() {
+        given: "a rectangle of specific size and placement"
+        Rectangle aRectangle = new Rectangle(10, 10, 40, 20)
+
+        when: "the values of a second rectangle fall entirely within the first"
+        Rectangle containedRectangle = new Rectangle(15, 15, 20, 10);
+        then: "the rectangle is contained"
+        aRectangle.contains(containedRectangle)
+
+        when: "the values of the second rectangle fall anywhere outside the first"
+        Rectangle nonContainedRectangle = new Rectangle(5, 5, 20, 10);
+        then: "the rectangle is not contained"
+        !aRectangle.contains(nonContainedRectangle);
+    }
+
+
 }

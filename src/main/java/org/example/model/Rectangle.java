@@ -31,13 +31,33 @@ public class Rectangle {
 
         if (
                 x + width > this.x && // x coordinate is inside this rectangle
-                y + height > this.y && // y coordinate is inside this rectangle
-                x < this.x + this.width &&
-                y < this.y + this.height
+                        y + height > this.y && // y coordinate is inside this rectangle
+                        x < this.x + this.width &&
+                        y < this.y + this.height
         ) {
             intersects = true;
         }
 
         return intersects;
+    }
+
+    /**
+     * Returns true if the parameter anotherRectangle
+     * is contained within this Rectangle.
+     */
+    boolean contains(Rectangle anotherRectangle) {
+        boolean contains = false;
+        int x = anotherRectangle.x;
+        int y = anotherRectangle.y;
+
+        if (
+                x >= this.x && // x coordinate is less than or equal to this x
+                        y >= this.y && // y coordinate is less than or equal to this y
+                        x < this.x + this.width && // rectangle width is smaller than this width
+                        y < this.y + this.height // rectangle height is also smaller than this height
+        ) {
+            contains = true;
+        }
+        return contains;
     }
 }
