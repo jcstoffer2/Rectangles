@@ -7,4 +7,13 @@ class RectangleSpecification extends Specification {
         expect:
         1 == 1
     }
+
+    def "tests whether a rectangle intersects"() {
+        given: "a rectangle"
+        Rectangle aRectangle = new Rectangle();
+        when: "another rectangle intersects"
+        Rectangle intersectingRectangle = new Rectangle();
+        then:
+        aRectangle.intersects(intersectingRectangle) == true;
+    }
 }
