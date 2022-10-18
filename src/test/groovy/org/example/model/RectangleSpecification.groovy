@@ -1,6 +1,7 @@
 package org.example.model
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class RectangleSpecification extends Specification {
 
@@ -47,5 +48,22 @@ class RectangleSpecification extends Specification {
         !aRectangle.adjacent(nonAdjacentRectangle)
     }
 
+    @Unroll("a rectangle of [#x, #y, #w, #h] is adjacent: #result")
+    def "tests multiple rectangles for adjacency"() {
+        given: "A rectangle"
+        Rectangle aRectangle = new Rectangle(1, 4, 4, 2)
+
+        expect:
+        aRectangle.adjacent(new Rectangle(x, y, w, h)) == result
+
+        where:
+        x | y | w | h | result
+        3 | 3 | 3 | 1 | true
+        7 | 7 | 2 | 1 | false
+        0 | 6 | 1 | 1 | true
+        8 | 3 | 3 | 1 | false
+        3 | 6 | 1 | 3 | true
+
+    }
 
 }

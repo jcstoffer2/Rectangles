@@ -78,30 +78,36 @@ public class Rectangle {
             if (i == 0) { // top side
                 Line thisTop = theseSides[i];
                 Line otherBottom = otherSides[1];
-                Range sideRange = Range.between(thisTop.x, thisTop.x2);
-                if (Range.between(thisTop.x, thisTop.x2).contains(otherBottom.x) ||
-                        Range.between(thisTop.x, thisTop.x2).contains(otherBottom.x2)) {
+                Range<Integer> sideRange = Range.between(thisTop.x, thisTop.x2);
+                if (sideRange.contains(otherBottom.x) || sideRange.contains(otherBottom.x2) &&
+                        thisTop.y == otherBottom.y) {
                     adjacent = true;
                     break;
                 }
             } else if (i == 1) { // bottom side
                 Line thisBottom = theseSides[i];
                 Line otherTop = otherSides[0];
-                if (Range.between(thisBottom.x, thisBottom.x2).contains(otherTop.x)) {
+                Range<Integer> sideRange = Range.between(thisBottom.x, thisBottom.x2);
+                if (sideRange.contains(otherTop.x) || sideRange.contains(otherTop.x2) &&
+                        thisBottom.y == otherTop.y) {
                     adjacent = true;
                     break;
                 }
             } else if (i == 2) { // left side
                 Line thisLeft = theseSides[i];
                 Line otherRight = otherSides[3];
-                if (Range.between(thisLeft.y, thisLeft.y2).contains(otherRight.y)) {
+                Range<Integer> sideRange = Range.between(thisLeft.y, thisLeft.y2);
+                if (sideRange.contains(otherRight.y) || sideRange.contains(otherRight.y2) &&
+                        thisLeft.x == otherRight.x) {
                     adjacent = true;
                     break;
                 }
             } else if (i == 3) { // right side
                 Line thisRight = theseSides[i];
                 Line otherLeft = otherSides[2];
-                if (Range.between(thisRight.y, thisRight.y2).contains(otherLeft.y)) {
+                Range<Integer> sideRange = Range.between(thisRight.y, thisRight.y2);
+                if (sideRange.contains(otherLeft.y) || sideRange.contains(otherLeft.y2) &&
+                        thisRight.x == otherLeft.x) {
                     adjacent = true;
                     break;
                 }
