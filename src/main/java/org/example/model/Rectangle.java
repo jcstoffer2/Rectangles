@@ -65,6 +65,13 @@ public class Rectangle {
         return contains;
     }
 
+    /**
+     * Checks the parameter rectangle for adjacency to this rectangle.
+     * It compares the x, y coordinates and each side of the rectangles.
+     * If the rectangles share a side, the method returns true.
+     * @param anotherRectangle
+     * @return
+     */
     boolean adjacent(Rectangle anotherRectangle) {
         boolean adjacent = false;
 
@@ -118,6 +125,13 @@ public class Rectangle {
     }
 
 
+    /**
+     * Returns a set of 4 sides for the given rectangle.
+     * Each side of the rectangle is represented by a Line.
+     * The array that is returned is [topSide, bottomSide, leftSide, rightSide]
+     * @param rec
+     * @return
+     */
     private Line[] getSides(Rectangle rec) {
         Line[] sides = new Line[4];
         Line topSide = new Line(rec.x, rec.y, rec.x + rec.width, rec.y);
@@ -133,6 +147,11 @@ public class Rectangle {
         return sides;
     }
 
+    /**
+     * A class that represents a singular line of a rectangle.
+     * int x and y are the starting coordinates of the line, and
+     * x2 and y2, are the end coordinates of the line.
+     */
     class Line {
         int x;
         int y;
