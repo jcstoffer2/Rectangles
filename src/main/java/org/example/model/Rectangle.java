@@ -2,8 +2,6 @@ package org.example.model;
 
 import org.apache.commons.lang3.Range;
 
-import java.time.temporal.ValueRange;
-
 /**
  * A class to represent a rectangle object
  *
@@ -76,15 +74,34 @@ public class Rectangle {
         // get all sides of other rectangle
         Line[] otherSides = getSides(anotherRectangle);
 
-        // loop through each side and see if rectangles are adjacent
-        for (Line line1 : theseSides) {
-            for (Line line2 : otherSides) {
-                Range<Integer> rangeX = Range.between(line1.x, line1.x2);
-                Range<Integer> rangeY = Range.between(line1.y, line1.y2);
-                if (rangeX.contains(line2.x) || rangeX.contains(line2.y) ||
-                        rangeX.contains(line2.x2) || rangeX.contains(line2.y2) ||
-                        rangeY.contains(line2.x) || rangeY.contains(line2.y) ||
-                        rangeY.contains(line2.y) || rangeY.contains(line2.y2)) {
+        for (int i = 0; i < theseSides.length; i++) {
+            if (i == 0) { // top side
+                Line thisTop = theseSides[i];
+                Line otherBottom = otherSides[1];
+                Range sideRange = Range.between(thisTop.x, thisTop.x2);
+                if (Range.between(thisTop.x, thisTop.x2).contains(otherBottom.x) ||
+                        Range.between(thisTop.x, thisTop.x2).contains(otherBottom.x2)) {
+                    adjacent = true;
+                    break;
+                }
+            } else if (i == 1) { // bottom side
+                Line thisBottom = theseSides[i];
+                Line otherTop = otherSides[0];
+                if (Range.between(thisBottom.x, thisBottom.x2).contains(otherTop.x)) {
+                    adjacent = true;
+                    break;
+                }
+            } else if (i == 2) { // left side
+                Line thisLeft = theseSides[i];
+                Line otherRight = otherSides[3];
+                if (Range.between(thisLeft.y, thisLeft.y2).contains(otherRight.y)) {
+                    adjacent = true;
+                    break;
+                }
+            } else if (i == 3) { // right side
+                Line thisRight = theseSides[i];
+                Line otherLeft = otherSides[2];
+                if (Range.between(thisRight.y, thisRight.y2).contains(otherLeft.y)) {
                     adjacent = true;
                     break;
                 }
@@ -94,12 +111,13 @@ public class Rectangle {
         return adjacent;
     }
 
+
     private Line[] getSides(Rectangle rec) {
         Line[] sides = new Line[4];
-        Line topSide = new Line(rec.x, rec.y, x + rec.width, y);
-        Line bottomSide = new Line(rec.x, rec.y + rec.height, x + rec.width, y);
-        Line leftSide = new Line(rec.x, rec.y, x, y + rec.height);
-        Line rightSide = new Line(rec.x + width, rec.y, x, y + rec.height);
+        Line topSide = new Line(rec.x, rec.y, rec.x + rec.width, rec.y);
+        Line bottomSide = new Line(rec.x, rec.y + rec.height, rec.x + rec.width, rec.y);
+        Line leftSide = new Line(rec.x, rec.y, rec.x, rec.y + rec.height);
+        Line rightSide = new Line(rec.x + width, rec.y, rec.x, rec.y + rec.height);
 
         sides[0] = topSide;
         sides[1] = bottomSide;

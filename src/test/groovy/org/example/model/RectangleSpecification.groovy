@@ -37,16 +37,14 @@ class RectangleSpecification extends Specification {
     def "tests whether one rectangle is adjacent to another"() {
         given: "a rectangle of specific size and placement"
         Rectangle aRectangle = new Rectangle(1, 4, 4, 2)
-
         when: "the sides of another rectangle match one side of the original rectangle"
-        Rectangle otherRectangle = new Rectangle(3, 6, 1, 3)
+        Rectangle otherRectangle = new Rectangle(3, 3, 3, 1)
         then: "the rectangle is adjacent"
         aRectangle.adjacent(otherRectangle)
-        // TODO: update Rectangle to get negative test to pass.
-//        when: "the sides of another rectangle do not match one side of the original rectangle"
-//        Rectangle nonAdjacentRectangle = new Rectangle(8, 3, 3, 1)
-//        then: "the rectangle is not adjacent"
-//        !aRectangle.adjacent(nonAdjacentRectangle)
+        when: "the sides of another rectangle do not match one side of the original rectangle"
+        Rectangle nonAdjacentRectangle = new Rectangle(8, 3, 3, 1)
+        then: "the rectangle is not adjacent"
+        !aRectangle.adjacent(nonAdjacentRectangle)
     }
 
 
